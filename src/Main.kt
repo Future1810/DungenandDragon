@@ -1,3 +1,8 @@
+val held1 = Krieger("Kokosnuss", 200)
+val held2 = Ritter("Lanzelott", 300)
+val held3 = Magier("Merlin", 150)
+val heldenTeam = mutableListOf(held1, held2, held3)
+
 fun main() {
     println("\u001B[31m" + """
         
@@ -6,7 +11,7 @@ fun main() {
                 ██║░░██║██║░░░██║██╔██╗██║██║░░██╗░█████╗░░██╔██╗██║  ██████╗  ██║░░██║██████╔╝███████║██║░░██╗░██║░░██║██╔██╗██║
                 ██║░░██║██║░░░██║██║╚████║██║░░╚██╗██╔══╝░░██║╚████║  ╚═██╔═╝  ██║░░██║██╔══██╗██╔══██║██║░░╚██╗██║░░██║██║╚████║
                 ██████╔╝╚██████╔╝██║░╚███║╚██████╔╝███████╗██║░╚███║  ░░╚═╝░░  ██████╔╝██║░░██║██║░░██║╚██████╔╝╚█████╔╝██║░╚███║
-                ╚═════╝░░╚═════╝░╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚══╝  ░░░░░░░  ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚══╝"""+ "\u001B[0m")
+                ╚═════╝░░╚═════╝░╚═╝░░╚══╝░╚═════╝░╚══════╝╚═╝░░╚══╝  ░░░░░░░  ╚═════╝░╚═╝░░╚═╝╚═╝░░╚═╝░╚═════╝░░╚════╝░╚═╝░░╚══╝""" + "\u001B[0m")
 
 
     Thread.sleep(5000)
@@ -15,12 +20,10 @@ fun main() {
 }
 
 
-
-
 fun anmelden() {
     var optionen = listOf(
-        "Einloggen",
-        "Programm beenden"
+            "Einloggen",
+            "Programm beenden"
     )
 
     for (i in optionen.indices) {
@@ -32,6 +35,7 @@ fun anmelden() {
             //optionen()
             namen()
         }
+
         "2" -> {
             System.exit(0)
         }
@@ -44,6 +48,7 @@ fun anmelden() {
 
 
 }
+
 fun namen() {
     var versuche = 0
     var userLoggedIn = false
@@ -94,24 +99,30 @@ fun LogIn() {
 }
 
 
-
-
-
 fun Game() {
 
-    val held1 = Krieger("Kokosnuss", 200)
-    val held2 = Ritter("Lanzelott", 300)
-    val held3 = Magier("Merlin", 150)
 
     val beutel = Beutel()
-    val endgegner = Endgegner("Endgegner", 500, 500)
+    val endgegner = Endgegner("Endgegner", 400, 500)
+    val unterboss = Unterboss("Unterboss", 200, 300)
 
-    val runden = 6
-    var count = 0
-    val heldenTeam = listOf(held1, held2, held3)
+    var count = 1
 
-    while (heldenTeam.isNotEmpty() && endgegner.hp > 100 && count <= runden) {
+
+
+
+    do {
         println("Runde $count:")
+
+        if (heldenTeam.isEmpty()) {
+            println("Du hast verloren! Das Helden-Team wurde besiegt.")
+            break
+        } else if (unterboss.hp <= 0 && endgegner.hp <= 0) {
+            println("Du hast gewonnen! Der Endgegner wurde besiegt.")
+            break
+        }
+
+
         for (held in heldenTeam) {
             println("${held.name} ist am Zug.")
             println("Verfügbare Aktionen: ${held.aktionen().joinToString()}")
@@ -125,24 +136,21 @@ fun Game() {
                 "5" -> beutel.benutzeVitamin(held)
                 else -> println("Ungültige Aktion!")
             }
+        }
+        println("Endgegner ist am Zug.")
+        endgegner.aktionAusfuehren(endgegner.aktionen().random(), heldenTeam)
+        println("\u001B[37m" + """Endgegner hat noch Lebens Punkte: ${endgegner.hp}""" + "\u001B[0m")
 
-            println("Endgegner ist am Zug.")
-            endgegner.aktionAusfuehren(endgegner.aktionen().random(), heldenTeam)
-            println("Endgegner hat Schaden bekommen: ${endgegner.hp}")
+        if (endgegner.hp <= (endgegner.maxHp / 2)) {
+            println("Unterboss ist am Zug.")
+            val unterboss = Unterboss("Unterboss", 200, 1)
+            unterboss.aktionAusfuehren(unterboss.aktionen().random(), heldenTeam)
+            println()
 
-            if (endgegner.hp <= (endgegner.maxHp / 2)) {
-                println("Unterboss ist am Zug.")
-                val unterboss = Unterboss("Unterboss", 200, 1)
-                unterboss.aktionAusfuehren(unterboss.aktionen().random(), heldenTeam)
-                println()
-            }
         }
 
-        if (heldenTeam.isEmpty()) {
-            println("Du hast verloren! Das Helden-Team wurde besiegt.")
-        } else {
-            println("Du hast gewonnen! Der Endgegner wurde besiegt.")
-        }
+
         count++
-    }
+    } while (heldenTeam.isNotEmpty() || (endgegner.hp <= 0 && unterboss.hp <= 0))
+
 }

@@ -27,6 +27,10 @@ open class Held(val name: String, var maxHp: Int, var hp: Int = maxHp) {
     }
 
     open fun erhoeheSchadenswert(factor: Double) {
-        // Implementiere hier die Anpassung des Schadenswertes des Helden
+
     }
+
+
+
+
 }
