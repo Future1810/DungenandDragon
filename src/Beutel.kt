@@ -1,10 +1,10 @@
-class Beutel {
-    private var heiltrankAnzahl: Int = 3
-    private var vitaminAnzahl: Int = 1
+open class Beutel {
+    private var heiltrankAnzahl: Int = 6
+    private var vitaminAnzahl: Int = 5
 
     fun benutzeHeiltrank(held: Held) {
         if (heiltrankAnzahl > 0) {
-            held.heilen(held.maxHp / 2)
+            held.heilen(i = 20)
             heiltrankAnzahl--
         }
     }

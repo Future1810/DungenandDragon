@@ -1,8 +1,11 @@
+
 val held1 = Krieger("Kokosnuss", 200)
 val held2 = Ritter("Lanzelott", 300)
 val held3 = Magier("Merlin", 150)
 val heldenTeam = mutableListOf(held1, held2, held3)
-
+val endgegner = Endgegner("Eragon", 400, 500)
+val unterboss = Unterboss("Unterboss", 200, 300)
+val gegnaTeam = mutableListOf(endgegner)
 fun main() {
     println("\u001B[31m" + """
         
@@ -100,11 +103,24 @@ fun LogIn() {
 
 
 fun Game() {
+    println("\u001B[34m" + """
+                  ░█▀▀▄ █▀▀█ █▀▀ 　 ▀▀█▀▀ █▀▀ █▀▀█ █▀▄▀█ 　 ░█▀▀█ █▀▀ █▀▀ ▀▀█▀▀ █▀▀ █  █ ▀▀█▀▀ 　 █▀▀█ █  █ █▀▀ 
+                  ░█ ░█ █▄▄█ ▀▀█ 　  ░█   █▀▀ █▄▄█ █ ▀ █ 　 ░█▀▀▄ █▀▀ ▀▀█   █   █▀▀ █▀▀█   █   　 █▄▄█ █  █ ▀▀█ 
+                  ░█▄▄▀ ▀  ▀ ▀▀▀ 　  ░█   ▀▀▀ ▀  ▀ ▀   ▀ 　 ░█▄▄█ ▀▀▀ ▀▀▀   ▀   ▀▀▀ ▀  ▀   ▀   　 ▀  ▀  ▀▀▀ ▀▀▀"""+ "\u001B[0m\n")
+
+
+    println("            Der Krieger = Kokosnuss              Der Ritter = Lanzelott              Der Magier = Merlin \n            Fähigkeit: Angrif,Schwertkaff        Fähigkeit: Angrif,Schwertkaff       Fähigkeit: Angrif,Heilen,Feuerball\n            Lebens hp = 200                      Lebens hp = 300                     Lebens hp = 150    \n")
+
+    println("\u001B[34m" + """
+       ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── 
+       ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀ ▀▀
+       ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── ── """+ "\u001B[0m\n")
+
+    Thread.sleep(3000)
 
 
     val beutel = Beutel()
-    val endgegner = Endgegner("Endgegner", 400, 500)
-    val unterboss = Unterboss("Unterboss", 200, 300)
+
 
     var count = 1
 
@@ -118,7 +134,7 @@ fun Game() {
             println("Du hast verloren! Das Helden-Team wurde besiegt.")
             break
         } else if (unterboss.hp <= 0 && endgegner.hp <= 0) {
-            println("Du hast gewonnen! Der Endgegner wurde besiegt.")
+            println("Du hast gewonnen! Eragon wurde besiegt.")
             break
         }
 
@@ -127,7 +143,7 @@ fun Game() {
             println("${held.name} ist am Zug.")
             println("Verfügbare Aktionen: ${held.aktionen().joinToString()}")
             println("Wähle eine Aktion:")
-            val aktion: String = readLine() ?: ""
+            val aktion: String = readln() ?: ""
             when (aktion) {
                 "1" -> held.aktionAusfuehren(aktion, endgegner)
                 "2" -> held.aktionAusfuehren(aktion, endgegner)
@@ -137,9 +153,9 @@ fun Game() {
                 else -> println("Ungültige Aktion!")
             }
         }
-        println("Endgegner ist am Zug.")
+        println("Eragon ist am Zug.")
         endgegner.aktionAusfuehren(endgegner.aktionen().random(), heldenTeam)
-        println("\u001B[37m" + """Endgegner hat noch Lebens Punkte: ${endgegner.hp}""" + "\u001B[0m")
+        println("\u001B[37m" + """Eragon hat noch Lebens Punkte: ${endgegner.hp}""" + "\u001B[0m")
 
         if (endgegner.hp <= (endgegner.maxHp / 2)) {
             println("Unterboss ist am Zug.")
@@ -151,6 +167,6 @@ fun Game() {
 
 
         count++
-    } while (heldenTeam.isNotEmpty() || (endgegner.hp <= 0 && unterboss.hp <= 0))
+    } while (heldenTeam.isNotEmpty() || gegnaTeam.isNotEmpty())
 
 }

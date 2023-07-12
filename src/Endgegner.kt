@@ -17,7 +17,7 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
         val held = helden.random()
         val dmg = (10..30).random()
         val schaden = held.hp - dmg
-        println("$name greift ${held.name} an und fügt $dmg Schaden zu.")
+        println("\u001B[32m" + """$name greift ${held.name} an und fügt $dmg Schaden zu.""" + "\u001B[0m")
         if (schaden <= 0) {
             println("\u001B[31m" + """${held.name} ist tod""" + "\u001B[0m")
             heldenTeam.remove(held)
@@ -52,13 +52,13 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
         val held = helden.random()
         val dmg = (5..10).random()
         val schaden = held.hp - dmg
-        println("$name verflucht ${held.name}!")
+        println("\u001B[34m" + """$name verflucht ${held.name}!""" + "\u001B[0m")
 
         if (schaden <= 0) {
             println("\u001B[31m" + """${held.name} ist tod""" + "\u001B[0m")
             heldenTeam.remove(held)
         } else {
-            println("${held.name}hat noch Lebens Punkte: ${held.hp}")
+            println("\u001B[35m" + """${held.name}hat noch Lebens Punkte: ${held.hp}""" + "\u001B[0m")
             held.hp -= dmg
         }
     }
@@ -67,3 +67,5 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
         println("$name kann keinen Unterboss beschwören!")
     }
 }
+
+
