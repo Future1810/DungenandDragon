@@ -21,7 +21,7 @@ open class Gegner(val name: String, var hp: Int) {
     }
 
     open fun flaechenschaden(helden: List<Held>) {
-        val dmg = (10..20).random()
+        val dmg = (5..10).random()
         for (held in helden) {
             held.hp -= dmg
         }
@@ -29,6 +29,7 @@ open class Gegner(val name: String, var hp: Int) {
     }
 
     open fun fluch(helden: List<Held>) {
+
         val held = helden.random()
         println("$name verflucht ${held.name}!")
     }
@@ -36,4 +37,6 @@ open class Gegner(val name: String, var hp: Int) {
     open fun beschwoerung() {
         println("$name kann keinen Unterboss beschwören!")
     }
+
+
 }

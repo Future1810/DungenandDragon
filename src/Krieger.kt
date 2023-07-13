@@ -1,6 +1,6 @@
 class Krieger(name: String, maxHp: Int) : Held(name, maxHp) {
     override fun aktionen(): List<String> {
-        return super.aktionen() + "3. Schwertkampf"
+        return super.aktionen() + "4. Schwertkampf"
     }
 
     override fun aktionAusfuehren(aktion: String, ziel: Gegner) {
@@ -10,7 +10,7 @@ class Krieger(name: String, maxHp: Int) : Held(name, maxHp) {
         }
     }
 
-    private fun schwertkampf(ziel: Gegner) {
+    override fun schwertkampf(ziel: Gegner) {
         val dmg = (20..30).random()
         ziel.hp -= dmg
         println("$name greift mit Schwert an und fügt $dmg Schaden zu.")

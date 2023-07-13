@@ -13,6 +13,10 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
         }
     }
 
+
+
+
+
     override fun angriff(helden: List<Held>) {
         val held = helden.random()
         val dmg = (10..30).random()
@@ -35,7 +39,7 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
             held.hp -= dmg
             if (held.hp <= 0) {
                 println("\u001B[31m" + """${held.name} ist tod""" + "\u001B[0m")
-                toteHelden.add(held)
+               
 
             } else {
 
@@ -63,9 +67,27 @@ class Endgegner(name: String, hp: Int, val maxHp: Int) : Gegner(name, hp) {
         }
     }
 
+
+
     override fun beschwoerung() {
-        println("$name kann keinen Unterboss beschwören!")
+        val unterboss = Unterboss("Eljot", 200, 300)
+        gegnaTeam.add(endgegner)
+        println("$name hat den Unterboss ${unterboss.name} beschworen!")
     }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

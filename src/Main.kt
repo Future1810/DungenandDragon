@@ -4,7 +4,7 @@ val held2 = Ritter("Lanzelott", 300)
 val held3 = Magier("Merlin", 150)
 val heldenTeam = mutableListOf(held1, held2, held3)
 val endgegner = Endgegner("Eragon", 400, 500)
-val unterboss = Unterboss("Unterboss", 200, 300)
+val unterboss = Unterboss("Eljot", 200, 300)
 val gegnaTeam = mutableListOf(endgegner)
 fun main() {
     println("\u001B[31m" + """
@@ -147,8 +147,8 @@ fun Game() {
             when (aktion) {
                 "1" -> held.aktionAusfuehren(aktion, endgegner)
                 "2" -> held.aktionAusfuehren(aktion, endgegner)
-                "3" -> held.aktionAusfuehren(aktion, endgegner)
-                "4" -> beutel.benutzeHeiltrank(held)
+                "3" -> beutel.benutzeHeiltrank(held)
+                "4" -> held.aktionAusfuehren(aktion, endgegner)
                 "5" -> beutel.benutzeVitamin(held)
                 else -> println("Ungültige Aktion!")
             }
